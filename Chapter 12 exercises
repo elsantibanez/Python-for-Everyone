@@ -24,3 +24,24 @@ try:
 except:
     print('Invalid URL')
     quit()
+
+Exercise 5:
+Had to use Github AI in helping me figure this out :-)
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
+total_bdata = b""   # create a byte string
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    
+    total_bdata += data  # append data to total_bdata
+total_bdata = total_bdata.split(b'\r\n\r\n')  # split the total_bdata
+total_bdata = total_bdata[1]  # get the second part of the split
+total_bdata = total_bdata.strip()  # strip the total_bdata
+total_bdata = total_bdata.decode()  # decode the total_bdata
+print(total_bdata)  # print the total_bdata
+mysock.close()  # close the socket
